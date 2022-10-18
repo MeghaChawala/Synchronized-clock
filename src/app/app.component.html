@@ -1,0 +1,37 @@
+<div class="clock-wrapper black-border">
+  <div class="clock-analog shadow">
+    <div class="source"></div>
+      <span *ngFor="let digit of digits" class="digit digit-{{digit}}" 
+          [ngStyle]="{'transform' : 'rotate('+ digit * 30 +'deg)'}">
+        <b [ngStyle]="{'transform' : 'rotate(-'+ digit * 30 +'deg)'}">{{digit}}</b>
+      </span>
+
+      <div class="hand hour-hand" [ngStyle]="currentClock.hourHandPosition"></div>
+      <div class="hand minute-hand" [ngStyle]="currentClock.minuteHandPosition"></div>
+      <div class="hand second-hand" [ngStyle]="currentClock.secondHandPosition"></div>
+    </div>  
+
+  <div class="clock-digital shadow">
+    <span class="date hour">{{currentClock.hour}} :</span>
+    <span class="date minute">{{currentClock.minute}} :</span>
+    <span class="date second">{{currentClock.second}}</span>
+    <span class="date second">{{currentClock.period}}</span>
+
+  </div>
+
+  <div class="padding--top">
+    <div class="padding--top">
+      <button (click)="changeClockState()" class="primary-button">
+        {{ clockIsAuto ? 'Change to custom clock' : 'Change to auto clock' }}
+      </button>
+      <div class="padding--top">
+        <div *ngIf="!clockIsAuto">
+          <span>Enter new time : </span>
+          <input [(ngModel)]="customClock.hour" (keyup)="updateClock('hour', $event)" type="number" [placeholder]="customClock.hour " class="primary-input clock-input">
+          <input [(ngModel)]="customClock.minute" (keyup)="updateClock('minute', $event)" clockMinute type="number" [placeholder]="customClock.minute " class="primary-input clock-input">
+          <input [(ngModel)]="customClock.second" (keyup)="updateClock('second', $event)" clockSecond type="number" [placeholder]="customClock.second" class="primary-input clock-input">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
